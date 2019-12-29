@@ -1,0 +1,60 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: |
+  WordPress instance running on Docker on a EC2 instance and using a serverless MySQL database
+
+Parameters:
+  MasterUsername:
+    Type: String
+    Default: admin
+  MasterUserPassword:
+    Type: String
+    NoEcho: true
+
+Resources:
+  Database:
+    Type: AWS::RDS::DBCluster
+    Properties: 
+      # AssociatedRoles: 
+      #   - DBClusterRole
+      # AvailabilityZones: 
+      #   - String
+      # BacktrackWindow: 259200
+      BackupRetentionPeriod: 35
+      DatabaseName: wordpress
+      # DBClusterIdentifier: String
+      # DBClusterParameterGroupName: String
+      # DBSubnetGroupName: String
+      DeletionProtection: true
+      # EnableCloudwatchLogsExports: 
+      #   - String
+      # EnableHttpEndpoint: Boolean
+      # EnableIAMDatabaseAuthentication: Boolean
+      Engine: aurora
+      EngineMode: serverless
+      # EngineVersion: String
+      # KmsKeyId: String
+      MasterUsername: !Ref MasterUsername
+      MasterUserPassword: !Ref MasterUserPassword
+      Port: 3306
+      # PreferredBackupWindow: String
+      # PreferredMaintenanceWindow: String
+      # ReplicationSourceIdentifier: String
+      # RestoreType: String
+      ScalingConfiguration: 
+        AutoPause: true
+        MinCapacity: 1
+        MaxCapacity: 2
+      # SnapshotIdentifier: String
+      # SourceDBClusterIdentifier: String
+      # SourceRegion: String
+      # StorageEncrypted: Boolean
+      # Tags: 
+      #   - Tag
+      # UseLatestRestorableTime: Boolean
+      # VpcSecurityGroupIds: 
+      #   - String
+
+# Outputs:
+#   set of outputs
